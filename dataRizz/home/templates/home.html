@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- <link rel="stylesheet" href=home.css"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}"/>
+    <script>
+        function Product() {
+            var product = document.getElementById("product").value;
+            alert(product);
+            // DisplayPNGBelow();
+        }
+        function Producer() {
+            var producer = document.getElementById("producer").value;
+            // document.getElementById('producer').innerHTML = producer;
+            alert(producer);
+            AddDataToDisplay(producer, "75%", "50%", "True", "False", "53");
+        }
+
+        // const { exec } = require("child_process");
+
+        // const executeCommand = (command) => {
+        //     return new Promise((resolve, reject) => {
+        //         exec(command, (error, stdout, stderr) => {
+        //         if (error) {
+        //             reject(error);
+        //         } else {
+        //             resolve(stdout ? stdout : stderr);
+        //         }
+        //         });
+        //     });
+        // };
+
+        // executeCommand("ls").then((result) => {
+        //     console.log(result);
+        // });
+
+    </script>
+
+
+<title>Page Title</title>
+</head>
+<body style="background-color:#FFFFF0">
+
+<h1 class="title">Farmsight</h1>
+
+<div class="container">
+    <script>
+        function ToggleHide(id) {
+            var x = document.getElementById(id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            // var y="yeet";
+            // DisplayHiddenData(y);
+        }
+        function AddDataToDisplay(prod, prob1, prob2, land, water, score) {
+            document.getElementById('producer2').innerHTML = prod;
+            document.getElementById('prob1').innerHTML = prob1;
+            document.getElementById('prob2').innerHTML = prob2;
+            document.getElementById('land').innerHTML = land;
+            document.getElementById('water').innerHTML = water;
+            document.getElementById('score').innerHTML = score;
+        }
+    </script>
+    <div class="left">
+      <div class="largecontent">
+        Analyze statistics for a particular product!
+        <br/>
+        <br/>
+      </div>
+      <div class="content">
+        Enter product name/code: <input type="text" id="product" name="name">
+        <button class="button" onclick="Product()">Submit</button>
+      </div>
+    </div>
+    <div class="right">
+        <div class="largecontent">
+            Analyze statistics for a particular producer!
+            <br/>
+            <br/>
+        </div>
+        <div class="content">
+            {% block content%}
+            <form action="{% url 'home' %}" method="post">
+                {% csrf_token %}
+                Enter producer name/code: <input type="text" id="producer" name="name">
+                <button class="button" onclick="Producer()">Submit</button>
+
+            {% comment %} Enter producer name/code: <input type="text" id="producer" name="name"> {% endcomment %}
+            </form>
+            {% endblock %}
+        </div>
+        <div class="hiddentext" id="producerhidden">
+            
+            Producer: <div id="producer2"></div>
+            <br/>
+            Probability of delivery: <div id="prob1"></div>
+            <br/>
+            Probability of delivery on time: <div id="prob2"></div>
+            <br/>
+            Land Owner: <div id="land"></div>
+            <br/>
+            Water Access: <div id="water"></div>
+            <br/>
+            Reliability Score: <div id="score"></div>
+            <br/>
+        
+            See Below for Graphs:
+        </div>
+        <button class="button" onclick="ToggleHide('producerhidden')">Toggle Hide/Show</button>
+    </div>
+</div>
+
+<div>
+    <script>
+        function ChangeImage() {
+            document.getElementById("imgid").src="{% static 'spiderman.png' %}";
+        }
+    </script>
+    <!-- <div><img alt="" id="img_target" src="spiderman.png" /></div> -->
+    <img id="imgid" class="image" src="{% static 'fffff0.png' %}" alt="TestImage">
+    <button class="button" onclick="ChangeImage()">Add Image</button>
+</div>
+
+</body>
+</html>
